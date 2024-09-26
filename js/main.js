@@ -1,139 +1,120 @@
-//* Lista de Equipos
-let Equipos = [];
-
-//*Los Equipos
-const nombresEquipos = ["River", "Boca", "Bayer Munich", "Barcelona F.C", "Chicago", "Real Madrid", "Chacarita"];
-
-//* Configuración de filtros por precio de DT
-const filtroPrecio = { minimo: 0, maximo: 1000 };
-
-//! Funciones que son esenciales para el funcionamiento del "proyecto"
-
-//* Función para agregar un equipo al inventario
-function agregarEquipo(titulos, DT, saldo, nombreEquipo, estadio) {
-    if (!nombresEquipos.includes(nombreEquipo)) {
-        console.log(`Nombre de equipo inválido. Equipos disponibles: ${nombresEquipos.join(", ")}`);
-        return;
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+const productos = [
+    {
+        id: "Pizza N°1",
+        titulo: "Pizza 01",
+        precio: 3000,
+        img: "../img/pizza-1.jpg",
+    },
+    {
+        id: "Pizza N°2",
+        titulo: "Pizza 02",
+        precio: 3000,
+        img: "../img/Pizza-2.jpg",
+    },
+    {
+        class: "numero-3",
+        id: "Pizza N°3",
+        titulo: "Pizza 03",
+        precio: 3000,
+        img: "../img/pizza-pizza-filled-with-tomatoes-salami-olives.jpg",
     }
-    const equipo = {
-        titulos: Number(titulos),  // Convertir títulos a número
-        DT,
-        saldo,
-        nombreEquipo,
-        estadio,
-        disponible: true
-    };
-    Equipos.push(equipo);
-    console.log(`Equipo "${nombreEquipo}" agregado exitosamente.`);
-}
-
-//* Funciones de filtro
-
-// Filtrar por títulos
-function buscarEquipoPorTitulo(titulos) {
-    return Equipos.filter(equipo => equipo.titulos === Number(titulos));
-}
-
-// Filtrar por DT
-function buscarEquipoPorDT(DT) {
-    return Equipos.filter(equipo => equipo.DT.toLowerCase().includes(DT.toLowerCase()));
-}
-
-// Filtrar por saldo del equipo
-function filtrarEquiposPorSaldo(minimo, maximo) {
-    return Equipos.filter(equipo => equipo.saldo >= minimo && equipo.saldo <= maximo);
-}
-
-// Filtrar por nombre de equipo
-function filtrarEquiposPorNombre(nombreEquipo) {
-    return Equipos.filter(equipo => equipo.nombreEquipo.toLowerCase() === nombreEquipo.toLowerCase());
-}
-
-// Filtrar por estadio
-function filtrarEquiposPorEstadio(estadio) {
-    return Equipos.filter(equipo => equipo.estadio.toLowerCase().includes(estadio.toLowerCase()));
-}
-
-// Función para mostrar todos los Equipos
-function mostrarEquipos() {
-    console.log("Conjunto de Equipos:");
-    if (Equipos.length === 0) {
-        console.log("No hay Equipos agregados.");
-        return;
-    }
-    Equipos.forEach((equipo, index) => {
-        console.log(`${index + 1}. ${equipo.nombreEquipo} con DT ${equipo.DT} - Saldo: ${equipo.saldo} USD - Títulos: ${equipo.titulos} - Estadio: ${equipo.estadio}`);
-    });
-}
-
-//? Ejemplos de uso
-
-// Agregar Equipos a la Consola
-agregarEquipo(10, "Gallardo", 10000, "River", "Mas Monumental");
-agregarEquipo(1, "Diego Hernán Martínez", 9000, "Boca", "La Bombonera");
-agregarEquipo(7, "Vincent Kompany", 12000, "Bayer Munich", "Allianz Arena");
-agregarEquipo(8, "Hansi Flick", 13000, "Barcelona F.C", "Camp Nou");
-agregarEquipo(9, "Andrés Montenegro", 4000, "Chicago", "Estadio Nueva Chicago");
-agregarEquipo(2, "Carlo Ancelotti", 15000, "Real Madrid", "Estadio Santiago Bernabeu");
-agregarEquipo(4, "Manuel Fernández", 200, "Chacarita", "Estadio de Chacarita Juniors");
-
-// Funciones de Búsqueda y Filtro Interactivas
-function buscarPorTituloPrompt() {
-    const titulo = prompt("Ingrese el número de títulos del equipo a buscar:");
-    const resultados = buscarEquipoPorTitulo(titulo);
-    if (resultados.length === 0) {
-        console.log(`No se encontraron equipos con ${titulo} títulos.`);
+];
+const contenedorProductos = document.querySelector("#productos");
+const carritoVacio = document.querySelector("#carrito-vacio");
+const carritoProductos = document.querySelector("#carrito-productos");
+const carritoTotal = document.querySelector("#carrito-total");
+productos.forEach((producto) => {
+    let div = document.createElement("div");
+    div.classList.add("producto");
+    div.innerHTML = `
+        <img class="producto-img" src=${producto.img}>
+        <h3>${producto.titulo}</h3>
+        <p>$${producto.precio}</p>
+    `;
+    let button = document.createElement("button");
+    button.classList.add("producto-btn");
+    button.innerText = "Agregar al carrito";
+    button.addEventListener("click", () => {
+        agregarAlCarrito(producto);
+    })
+    div.append(button);
+    contenedorProductos.append(div);
+});
+function actualizarCarrito() {
+    if (carrito.length === 0) {
+        carritoVacio.classList.remove("d-none");
+        carritoProductos.classList.add("d-none");
     } else {
-        console.log("Equipos encontrados:");
-        console.log(resultados);
+        carritoVacio.classList.add("d-none");
+        carritoProductos.classList.remove("d-none");
+        carritoProductos.innerHTML = "";
+        carrito.forEach((producto) => {
+            let div = document.createElement("div");
+            div.classList.add("carrito-producto");
+            div.innerHTML = `
+                <h3>${producto.titulo}</h3>
+                <p>$${producto.precio}</p>
+                <p>Cant: ${producto.cantidad}</p>
+                <p>Subt: $${producto.precio * producto.cantidad}</p>
+            `;
+            let buttonAumentar = document.createElement("button");
+            buttonAumentar.classList.add("carrito-producto-btn");
+            buttonAumentar.innerText = "⬆️";
+            buttonAumentar.addEventListener("click", () => {
+                aumentarCantidad(producto);
+            })
+            div.append(buttonAumentar);
+            let buttonReducir = document.createElement("button");
+            buttonReducir.classList.add("carrito-producto-btn");
+            buttonReducir.innerText = "⬇️";
+            buttonReducir.addEventListener("click", () => {
+                reducirCantidad(producto);
+            })
+            div.append(buttonReducir);
+            let button = document.createElement("button");
+            button.classList.add("carrito-producto-btn");
+            button.innerText = "✖️";
+            button.addEventListener("click", () => {
+                borrarDelCarrito(producto);
+            });
+            div.append(button);
+            carritoProductos.append(div);
+        });
     }
+    actualizarTotal();
+    localStorage.setItem("carrito", JSON.stringify(carrito));
 }
-
-function buscarPorDTPrompt() {
-    const DT = prompt("Ingrese el DT del equipo a buscar:");
-    const resultados = buscarEquipoPorDT(DT);
-    if (resultados.length === 0) {
-        console.log(`No se encontraron equipos con el DT "${DT}".`);
+function agregarAlCarrito(producto) {
+    let itemEncontrado = carrito.find((item) => item.id === producto.id);
+    if (itemEncontrado) {
+        itemEncontrado.cantidad++;
     } else {
-        console.log("Equipos encontrados:");
-        console.log(resultados);
+        carrito.push({...producto, cantidad: 1});
     }
+    actualizarCarrito();
 }
-
-function filtrarPorSaldoPrompt() {
-    const minimo = parseFloat(prompt("Ingrese el saldo mínimo:"));
-    const maximo = parseFloat(prompt("Ingrese el saldo máximo:"));
-    const resultados = filtrarEquiposPorSaldo(minimo, maximo);
-    if (resultados.length === 0) {
-        console.log(`No se encontraron equipos en el rango de saldo entre ${minimo} y ${maximo} USD.`);
+function borrarDelCarrito(producto) {
+    let indice = carrito.findIndex((item) => item.id === producto.id);
+    carrito.splice(indice, 1);
+    actualizarCarrito();
+}
+function actualizarTotal() {
+    let total = carrito.reduce((acc, prod) => acc + (prod.precio * prod.cantidad), 0);
+    carritoTotal.innerText = `$${total}`;
+}
+function aumentarCantidad(producto) {
+    let itemEncontrado = carrito.find((item) => item.id === producto.id);
+    itemEncontrado.cantidad++;
+    actualizarCarrito();
+}
+function reducirCantidad(producto) {
+    let itemEncontrado = carrito.find((item) => item.id === producto.id);
+    if (itemEncontrado.cantidad >= 2) {
+        itemEncontrado.cantidad--;
+        actualizarCarrito();
     } else {
-        console.log("Equipos encontrados en el rango de saldo:");
-        console.log(resultados);
+        borrarDelCarrito(itemEncontrado);
     }
 }
-
-function filtrarPorNombreEquipoPrompt() {
-    const nombreEquipo = prompt("Ingrese el nombre del equipo a filtrar:");
-    const resultados = filtrarEquiposPorNombre(nombreEquipo);
-    if (resultados.length === 0) {
-        console.log(`No se encontraron equipos con el nombre "${nombreEquipo}".`);
-    } else {
-        console.log("Equipos encontrados con el nombre:");
-        console.log(resultados);
-    }
-}
-
-// Ejecutar funciones de ejemplo
-mostrarEquipos(); // Muestra todos los equipos
-
-// Buscar un equipo por el número de títulos
-buscarPorTituloPrompt();
-
-// Buscar un equipo por el DT
-buscarPorDTPrompt();
-
-// Filtrar los equipos por saldo
-filtrarPorSaldoPrompt();
-
-// Filtrar los equipos por nombre de equipo
-filtrarPorNombreEquipoPrompt();
+actualizarCarrito();
