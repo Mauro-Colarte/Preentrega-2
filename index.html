@@ -1,12 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto N°2</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body>
     <header class="header">
         <div class="container">
@@ -17,21 +18,24 @@
         <section class="container">
             <h2 class="titulo">Nuestras Pizzas</h2>
             <div class="productos" id="productos">
-                <!-- Esto se va a rellenar con JS -->
+                <!--? esta parte se rellena en JS(son las img) -->
             </div>
         </section>
-        <section class="container">
+        <section class="container carro">
             <h2 class="titulo">Carrito</h2>
             <div class="carrito">
-                <div id="carrito-vacio">
-                    <h4>Tu carrito está vacío. 🙁</h4>
+                <div id="carrito-vacio" class="carrito-vacio">
+                    <h4>Tu carrito está vacío.</h4>
                 </div>
                 <div class="carrito-productos d-none" id="carrito-productos">
-                    <!-- Esto se va a rellenar con JS -->
+                    <!--? esta parte se rellena en JS -->
                 </div>
                 <div class="carrito-total">
                     <h2>Total: <span id="carrito-total">$0</span></h2>
                 </div>
+                <button class="finalizar-compra-btn" onclick="finalizarCompra()">
+                    Finalizar Compra
+                </button>
             </div>
         </section>
     </main>
@@ -40,7 +44,8 @@
             <p>Desarrollo Web hecho por Mauro Colarte | © 2024</p>
         </div>
     </footer>
-    
+
     <script src="./js/main.js"></script>
 </body>
+
 </html>
