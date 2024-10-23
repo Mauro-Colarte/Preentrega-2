@@ -1,50 +1,116 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto N°2</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda</title>
+    <link rel="stylesheet" href="./css/style.css" />
 </head>
 
 <body>
-    <header class="header">
-        <div class="container">
-            <h1>DakoPizza</h1>
+    <header>
+        <h1>DakoPizza</h1>
+
+        <div class="container-icon">
+            <div class="container-cart-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="icon-cart">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                </svg>
+                <div class="count-products">
+                    <span id="contador-productos">0</span>
+                </div>
+            </div>
+
+            <div class="container-cart-products hidden-cart">
+                <div class="row-product hidden">
+                    <div class="cart-product">
+                        <div class="info-cart-product">
+                            <span class="cantidad-producto-carrito">1</span>
+                            <p class="titulo-producto-carrito">Zapatos Nike</p>
+                            <span class="precio-producto-carrito">$80</span>
+
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="icon-close">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="cart-total hidden">
+                    <h3>Total:</h3>
+                    <span class="total-pagar">$200</span>
+                    <button class="btn-finalizar-compra">Finalizar compra</button>
+
+                </div>
+                <p class="cart-empty">El carrito está vacío</p>
+
+            </div>
         </div>
     </header>
     <main class="main">
-        <section class="container">
-            <h2 class="titulo">Nuestras Pizzas</h2>
-            <div class="productos" id="productos">
-                <!--? esta parte se rellena en JS(son las img) -->
+        <div class="container-items">
+            <div class="item">
+                <figure>
+                    <img src="./img/pizza-1.jpg" alt="producto" />
+                </figure>
+                <div class="info-product">
+                    <h2>Pizza N°1</h2>
+                    <p class="price">$80</p>
+                    <button class="btn-add-cart">Añadir al carrito</button>
+                </div>
             </div>
-        </section>
-        <section class="container carro">
-            <h2 class="titulo">Carrito</h2>
-            <div class="carrito">
-                <div id="carrito-vacio" class="carrito-vacio">
-                    <h4>Tu carrito está vacío.</h4>
+            <div class="item">
+                <figure>
+                    <img src="./img/pizza-2.jpg" alt="producto" />
+                </figure>
+                <div class="info-product">
+                    <h2>Pizza N°2</h2>
+                    <p class="price">$20</p>
+                    <button class="btn-add-cart">Añadir al carrito</button>
                 </div>
-                <div class="carrito-productos d-none" id="carrito-productos">
-                    <!--? esta parte se rellena en JS -->
-                </div>
-                <div class="carrito-total">
-                    <h2>Total: <span id="carrito-total">$0</span></h2>
-                </div>
-                <button class="finalizar-compra-btn" onclick="finalizarCompra()">
-                    Finalizar Compra
-                </button>
             </div>
-        </section>
+            <div class="item">
+                <figure>
+                    <img src="./img/pizza-3.jpg" alt="producto" />
+                </figure>
+                <div class="info-product">
+                    <h2>Pizza N°3</h2>
+                    <p class="price">$50</p>
+                    <button class="btn-add-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            <div class="item">
+                <figure>
+                    <img src="./img/Empanadas-Horno.jpg" alt="producto" />
+                </figure>
+                <div class="info-product">
+                    <h2>Empanadas N°4</h2>
+                    <p class="price">$90</p>
+                    <button class="btn-add-cart">Añadir al carrito</button>
+                </div>
+            </div>
+            <div class="item">
+                <figure>
+                    <img src="./img/pizza-4.jpg" alt="producto" />
+                </figure>
+                <div class="info-product">
+                    <h2>Pizza N°5</h2>
+                    <p class="price">$50</p>
+                    <button class="btn-add-cart">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
     </main>
     <footer class="footer">
-        <div class="container">
+        <div>
             <p>Desarrollo Web hecho por Mauro Colarte | © 2024</p>
         </div>
     </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/main.js"></script>
 </body>
 

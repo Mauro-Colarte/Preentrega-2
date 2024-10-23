@@ -1,0 +1,32 @@
+[
+    {
+        "id": "Pizza N°1",
+        "titulo": "Pizza 01",
+        "precio": 20,
+        "img": "../img/pizza-1.jpg"
+    },
+    {
+        "id": "Pizza N°2",
+        "titulo": "Pizza 02",
+        "precio": 15,
+        "img": "../img/pizza-2.jpg"
+    },
+    {
+        "id": "Pizza N°3",
+        "titulo": "Pizza 03",
+        "precio": 10,
+        "img": "../img/pizza-3.jpg"
+    },
+    {
+        "id": "Pizza N°4",
+        "titulo": "Pizza 04",
+        "precio": 30,
+        "img": "../img/pizza-4.jpg"
+    },
+    {
+        "id":"Empanada N°5",
+        "titulo": "Empanada 05",
+        "precio": 5,
+        "img": "../img/empanadas-horno.jpg"
+    }
+]
